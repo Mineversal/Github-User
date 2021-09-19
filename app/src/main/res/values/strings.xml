@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Github User</string>
+    <string name="github_page">Github</string>
+    <string name="ini_gambar_splash_screen">Ini Gambar Splash Screen</string>
+    <string name="share">Share</string>
+    <string name="repo">"%s Repositories"</string>
+</resources>
