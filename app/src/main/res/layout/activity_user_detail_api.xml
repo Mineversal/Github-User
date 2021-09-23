@@ -78,7 +78,7 @@
                 android:layout_gravity="center"
                 android:layout_marginTop="12dp">
 
-                <TableRow>
+                <TableRow tools:ignore="UselessParent">
 
                     <TextView
                         style="@style/TextContent.Subtitle"
@@ -125,37 +125,6 @@
                     app:drawableStartCompat="@drawable/ic_baseline_people_alt_24" />
 
             </RelativeLayout>
-
-            <TableLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="12dp">
-
-                <TableRow>
-
-                    <Button
-                        android:id="@+id/github"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:width="150dp"
-                        android:text="@string/github_page"
-                        android:layout_marginEnd="4dp"
-                        android:drawableLeft="@drawable/ic_baseline_insert_link_24"/>
-
-                    <Button
-                        android:id="@+id/share"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:width="150dp"
-                        android:text="@string/share"
-                        android:layout_marginStart="4dp"
-                        android:layout_marginEnd="8dp"
-                        android:drawableLeft="@drawable/ic_baseline_share_24"/>
-
-                </TableRow>
-
-            </TableLayout>
 
             <com.google.android.material.tabs.TabLayout
                 android:id="@+id/tabs"

@@ -1,4 +1,4 @@
-package com.mineversal.githubuser
+package com.mineversal.githubuser.model
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize

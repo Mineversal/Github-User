@@ -1,4 +1,4 @@
-package com.mineversal.githubuser
+package com.mineversal.githubuser.ui
 
 import android.content.Intent
 import android.net.Uri
@@ -8,28 +8,40 @@ import android.view.View
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.annotation.StringRes
+import androidx.viewpager2.widget.ViewPager2
+import com.bumptech.glide.Glide
+import com.google.android.material.tabs.TabLayout
+import com.google.android.material.tabs.TabLayoutMediator
+import com.mineversal.githubuser.R
+import com.mineversal.githubuser.databinding.ActivityUserDetailsBinding
+import com.mineversal.githubuser.model.User
 
 class UserDetailsActivity : AppCompatActivity(), View.OnClickListener {
+    private lateinit var binding: ActivityUserDetailsBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_user_details)
+        binding = ActivityUserDetailsBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         //Get Data
         val user = intent.getParcelableExtra<User>(EXTRA_USER) as User
+        val bundle = Bundle()
+        bundle.putString(UserDetailApiActivity.EXTRA_USERNAME, user.username)
 
         //Activity Content Id Declaration
-        val btnGithub: Button = findViewById(R.id.github)
+        val btnGithub: Button = binding.github
         btnGithub.setOnClickListener(this)
-        val btnShare: Button = findViewById(R.id.share)
+        val btnShare: Button = binding.share
         btnShare.setOnClickListener(this)
-        val imageView: ImageView = findViewById(R.id.avatar)
-        val nameReceived: TextView = findViewById(R.id.name)
-        val usernameReceived: TextView = findViewById(R.id.username)
-        val followReceived: TextView = findViewById(R.id.follow)
-        val companyReceived: TextView = findViewById(R.id.company)
-        val locationReceived: TextView = findViewById(R.id.location)
-        val repositoryReceived: TextView = findViewById(R.id.repository)
+        val imageView: ImageView = binding.avatar
+        val nameReceived: TextView = binding.name
+        val usernameReceived: TextView = binding.username
+        val followReceived: TextView = binding.follow
+        val companyReceived: TextView = binding.company
+        val locationReceived: TextView = binding.location
+        val repositoryReceived: TextView = binding.repository
 
         val resId: Int = user.avatar
         val name = user.name
@@ -41,14 +53,24 @@ class UserDetailsActivity : AppCompatActivity(), View.OnClickListener {
         val repository = user.repository.toString()
 
         //Set Data to Activity View Content
-        imageView.setImageResource(resId)
+        Glide.with(this)
+            .load(resId)
+            .into(imageView)
         nameReceived.text = name
         usernameReceived.text = username
-        followReceived.text = "$follower followers • $following following"
+        followReceived.text = StringBuilder(follower).append(" followers • ").append(following).append(" following")
         companyReceived.text = company
         locationReceived.text = location
         repositoryReceived.text = getString(R.string.repo, repository)
 
+        val sectionsPagerAdapter = SectionsPagerAdapter(this, bundle)
+        val viewPager: ViewPager2 = binding.viewPager
+        viewPager.adapter = sectionsPagerAdapter
+        val tabs: TabLayout = binding.tabs
+        TabLayoutMediator(tabs, viewPager) { tab, position ->
+            tab.text = resources.getString(TAB_TITLES[position])
+        }.attach()
+        supportActionBar?.elevation = 0f
 
         //Action Bar
         val actionbar = supportActionBar
@@ -75,7 +97,7 @@ class UserDetailsActivity : AppCompatActivity(), View.OnClickListener {
                 val websiteIntent = Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/${user.username}"))
                 startActivity(websiteIntent)
             }
-            R.id.share-> {
+            R.id.share -> {
                 val github = "https://github.com/${user.username}"
                 val shareIntent = Intent()
                 shareIntent.action = Intent.ACTION_SEND
@@ -91,5 +113,11 @@ class UserDetailsActivity : AppCompatActivity(), View.OnClickListener {
     //Intent Key Value Declaration
     companion object {
         const val EXTRA_USER = "extra_user"
+
+        @StringRes
+        private val TAB_TITLES = intArrayOf(
+            R.string.follower,
+            R.string.following
+        )
     }
 }

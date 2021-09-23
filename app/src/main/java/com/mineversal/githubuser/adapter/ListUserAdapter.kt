@@ -1,13 +1,14 @@
-package com.mineversal.githubuser
+package com.mineversal.githubuser.adapter
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
+import com.mineversal.githubuser.databinding.ItemRowUserBinding
+import com.mineversal.githubuser.model.User
 
 class ListUserAdapter(private val listUser: ArrayList<User>) : RecyclerView.Adapter<ListUserAdapter.ListViewHolder>() {
     private lateinit var onItemClickCallback: OnItemClickCallback
@@ -18,16 +19,16 @@ class ListUserAdapter(private val listUser: ArrayList<User>) : RecyclerView.Adap
     }
 
     //Get Id from Activity View
-    class ListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)  {
-        var tvName: TextView = itemView.findViewById(R.id.name)
-        var tvUsername: TextView = itemView.findViewById(R.id.username)
-        var imgAvatar: ImageView = itemView.findViewById(R.id.avatar)
+    class ListViewHolder(binding: ItemRowUserBinding) : RecyclerView.ViewHolder(binding.root) {
+        var tvName: TextView = binding.name
+        var tvUsername: TextView = binding.username
+        var imgAvatar: ImageView = binding.avatar
     }
 
     //Set Row Activity
     override fun onCreateViewHolder(viewGroup: ViewGroup, i: Int): ListViewHolder {
-        val view: View = LayoutInflater.from(viewGroup.context).inflate(R.layout.item_row_user, viewGroup, false)
-        return ListViewHolder(view)
+        val binding = ItemRowUserBinding.inflate(LayoutInflater.from(viewGroup.context), viewGroup, false)
+        return ListViewHolder(binding)
     }
 
     //Set User Data to Activity
@@ -39,7 +40,7 @@ class ListUserAdapter(private val listUser: ArrayList<User>) : RecyclerView.Adap
             .into(holder.imgAvatar)
         holder.tvName.text = user.name
         holder.tvUsername.text = user.username
-        holder.itemView.setOnClickListener { onItemClickCallback.onItemClicked(listUser[holder.adapterPosition]) }
+        holder.itemView.setOnClickListener { onItemClickCallback.onItemClicked(listUser[position]) }
     }
 
     //List Count
