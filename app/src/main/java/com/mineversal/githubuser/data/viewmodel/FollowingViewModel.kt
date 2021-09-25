@@ -1,4 +1,4 @@
-package com.mineversal.githubuser.viewmodel
+package com.mineversal.githubuser.data.viewmodel
 
 import android.util.Log
 import android.widget.Toast
@@ -6,12 +6,12 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.mineversal.githubuser.api.ApiConfig
-import com.mineversal.githubuser.model.Users
+import com.mineversal.githubuser.data.model.Users
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class FollowerViewModel: ViewModel() {
+class FollowingViewModel: ViewModel() {
     private val _user = MutableLiveData<ArrayList<Users>>()
     val user: LiveData<ArrayList<Users>> = _user
 
@@ -24,7 +24,7 @@ class FollowerViewModel: ViewModel() {
 
     fun setUsers(username: String) {
         _isLoading.value = true
-        val client = ApiConfig.getApiService().getFollowers(username)
+        val client = ApiConfig.getApiService().getFollowing(username)
         client.enqueue(object: Callback<ArrayList<Users>>{
             override fun onResponse(
                 call: Call<ArrayList<Users>>,
@@ -49,7 +49,7 @@ class FollowerViewModel: ViewModel() {
     }
 
     companion object {
-        private const val TAG = "FollowerViewModel"
+        private const val TAG = "FollowingViewModel"
         private const val error = "Data Gagal Dimuat"
     }
 }

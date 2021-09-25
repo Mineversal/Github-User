@@ -12,5 +12,9 @@
     <string name="user_tidak_ditemukan">User Tidak Ditemukan</string>
     <string name="hasil_pencarian">Hasil Pencarian</string>
     <string name="user_tidak_memiliki_follower">User Tidak Memiliki Follower</string>
-    <string name="user_tidak_memiliki_orang_yang_difollow">user tidak memiliki orang yang difollow</string>
+    <string name="user_tidak_memiliki_orang_yang_difollow">User tidak memiliki orang yang difollow</string>
+    <string name="Favorite">Favorite</string>
+    <string name="Setting">Setting</string>
+    <string name="dark_mode">Dark Mode</string>
+    <string name="list_favorite_mu_masih_kosong">List Favorite mu Masih Kosong</string>
 </resources>

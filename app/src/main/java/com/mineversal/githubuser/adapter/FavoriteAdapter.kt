@@ -7,10 +7,10 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
+import com.mineversal.githubuser.data.database.FavoriteUser
 import com.mineversal.githubuser.databinding.ItemRowUserBinding
-import com.mineversal.githubuser.data.model.Users
 
-class UserAdapter(private val users: List<Users>) : RecyclerView.Adapter<UserAdapter.ViewHolder>() {
+class FavoriteAdapter(private val users: ArrayList<FavoriteUser>) : RecyclerView.Adapter<FavoriteAdapter.ViewHolder>() {
     private lateinit var onItemClickCallback: OnItemClickCallback
 
     //Declaration of Click Call Back
@@ -45,6 +45,6 @@ class UserAdapter(private val users: List<Users>) : RecyclerView.Adapter<UserAda
 
     //Return User Data if Clicked
     interface OnItemClickCallback {
-        fun onItemClicked(data: Users)
+        fun onItemClicked(data: FavoriteUser)
     }
 }

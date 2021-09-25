@@ -1,13 +1,11 @@
 package com.mineversal.githubuser.api
 
 import com.mineversal.githubuser.BuildConfig
-import com.mineversal.githubuser.model.SearchResponse
-import com.mineversal.githubuser.model.UserDetailResponse
-import com.mineversal.githubuser.model.Users
+import com.mineversal.githubuser.data.model.SearchResponse
+import com.mineversal.githubuser.data.model.UserDetailResponse
+import com.mineversal.githubuser.data.model.Users
 import retrofit2.Call
 import retrofit2.http.*
-
-const val mySuperScretKey = BuildConfig.KEY
 
 //API SERVICE
 interface ApiService {
@@ -34,4 +32,8 @@ interface ApiService {
     fun getFollowing(
         @Path("username") username: String
     ): Call<ArrayList<Users>>
+
+    companion object {
+        private const val mySuperScretKey = BuildConfig.KEY
+    }
 }

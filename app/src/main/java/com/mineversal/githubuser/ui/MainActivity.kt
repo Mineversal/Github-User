@@ -13,12 +13,13 @@ import org.json.JSONTokener
 import android.app.SearchManager
 import android.content.Context
 import android.view.Menu
+import android.view.MenuItem
 import androidx.appcompat.widget.SearchView
 import com.mineversal.githubuser.R
 import com.mineversal.githubuser.adapter.ListUserAdapter
 import com.mineversal.githubuser.databinding.ActivityMainBinding
-import com.mineversal.githubuser.model.User
-import com.mineversal.githubuser.viewmodel.Utils
+import com.mineversal.githubuser.data.model.User
+import com.mineversal.githubuser.data.local.Utils
 
 class MainActivity : AppCompatActivity() {
 
@@ -82,9 +83,11 @@ class MainActivity : AppCompatActivity() {
 
         //Initialize Data to Array
         for (i in 0 until jsonArray.length()) {
+            val id = jsonArray.getJSONObject(i).getInt("id")
             val username = jsonArray.getJSONObject(i).getString("username")
             val name = jsonArray.getJSONObject(i).getString("name")
             val avatar = jsonArray.getJSONObject(i).getString("avatar")
+            val avatarUrl = jsonArray.getJSONObject(i).getString("avatar_url")
             val image = resources.getIdentifier(avatar, "drawable", this.packageName)
             val company = jsonArray.getJSONObject(i).getString("company")
             val location = jsonArray.getJSONObject(i).getString("location")
@@ -94,9 +97,11 @@ class MainActivity : AppCompatActivity() {
 
             //Call Data Model
             val model = User(
+                id,
                 username,
                 name,
                 image,
+                avatarUrl,
                 company,
                 location,
                 repository,
@@ -141,5 +146,31 @@ class MainActivity : AppCompatActivity() {
     //Selected User
     fun showSelectedUser(user: User) {
         showItemDetails(user)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        setMode(item.itemId)
+        return super.onOptionsItemSelected(item)
+    }
+
+    private fun setMode(selectedMode: Int) {
+        when (selectedMode) {
+            R.id.setting -> {
+                showSetting()
+            }
+            R.id.favorite -> {
+                showFavorite()
+            }
+        }
+    }
+
+    private fun showFavorite() {
+        val moveIntent = Intent(this@MainActivity, FavoriteActivity::class.java)
+        startActivity(moveIntent)
+    }
+
+    private fun showSetting() {
+        val moveIntent = Intent(this@MainActivity, SettingActivity::class.java)
+        startActivity(moveIntent)
     }
 }

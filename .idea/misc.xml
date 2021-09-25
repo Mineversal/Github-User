@@ -3,11 +3,14 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/AndroidStudio/GithubUser/app/src/main/res/drawable/favorite_toggle.xml" value="0.18703703703703703" />
         <entry key="..\:/AndroidStudio/GithubUser/app/src/main/res/drawable/ic_baseline_search_24.xml" value="0.21203703703703702" />
         <entry key="..\:/AndroidStudio/GithubUser/app/src/main/res/layout-v22/activity_user_detail_api.xml" value="0.1" />
         <entry key="..\:/AndroidStudio/GithubUser/app/src/main/res/layout/activity_detail_users.xml" value="0.1" />
+        <entry key="..\:/AndroidStudio/GithubUser/app/src/main/res/layout/activity_favorite.xml" value="0.1" />
         <entry key="..\:/AndroidStudio/GithubUser/app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="..\:/AndroidStudio/GithubUser/app/src/main/res/layout/activity_search.xml" value="0.25" />
+        <entry key="..\:/AndroidStudio/GithubUser/app/src/main/res/layout/activity_setting.xml" value="0.1" />
         <entry key="..\:/AndroidStudio/GithubUser/app/src/main/res/layout/activity_splash_screen.xml" value="0.14" />
         <entry key="..\:/AndroidStudio/GithubUser/app/src/main/res/layout/activity_user_detail_api.xml" value="0.25" />
         <entry key="..\:/AndroidStudio/GithubUser/app/src/main/res/layout/activity_user_details.xml" value="0.2" />

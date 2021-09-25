@@ -8,17 +8,27 @@ import android.view.View
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.annotation.StringRes
 import androidx.viewpager2.widget.ViewPager2
 import com.bumptech.glide.Glide
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.mineversal.githubuser.R
+import com.mineversal.githubuser.data.database.FavoriteUser
 import com.mineversal.githubuser.databinding.ActivityUserDetailsBinding
-import com.mineversal.githubuser.model.User
+import com.mineversal.githubuser.data.model.User
+import com.mineversal.githubuser.data.viewmodel.UserDetailViewModel
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class UserDetailsActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var binding: ActivityUserDetailsBinding
+    private val userDetailViewModel by viewModels<UserDetailViewModel>()
+    private var favoriteUser: FavoriteUser? = FavoriteUser()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -62,6 +72,37 @@ class UserDetailsActivity : AppCompatActivity(), View.OnClickListener {
         companyReceived.text = company
         locationReceived.text = location
         repositoryReceived.text = getString(R.string.repo, repository)
+
+        favoriteUser?.login = username
+        favoriteUser?.id = user.id
+        favoriteUser?.avatar_url = user.avatar_url
+
+        var isChecked = false
+
+        CoroutineScope(Dispatchers.IO).launch {
+            val count = userDetailViewModel.checkUser(user.id)
+            withContext(Dispatchers.Main){
+                if (count > 0) {
+                    binding.toggleFavorite.isChecked = true
+                    isChecked = true
+                } else {
+                    binding.toggleFavorite.isChecked = false
+                    isChecked = false
+                }
+            }
+        }
+
+        binding.toggleFavorite.setOnClickListener {
+            isChecked = !isChecked
+            if (isChecked){
+                userDetailViewModel.insert(favoriteUser as FavoriteUser)
+                showToast("User Berhasil Ditambahkan ke Favorite")
+            } else {
+                userDetailViewModel.delete(favoriteUser as FavoriteUser)
+                showToast("User Berhasil Dihapus Dari Favorite")
+            }
+            binding.toggleFavorite.isChecked = isChecked
+        }
 
         val sectionsPagerAdapter = SectionsPagerAdapter(this, bundle)
         val viewPager: ViewPager2 = binding.viewPager
@@ -108,6 +149,10 @@ class UserDetailsActivity : AppCompatActivity(), View.OnClickListener {
                 startActivity(Intent.createChooser(shareIntent, user.name))
             }
         }
+    }
+
+    private fun showToast(message: String) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
     }
 
     //Intent Key Value Declaration

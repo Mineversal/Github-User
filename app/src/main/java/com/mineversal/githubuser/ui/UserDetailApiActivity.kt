@@ -3,6 +3,7 @@ package com.mineversal.githubuser.ui
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.annotation.StringRes
 import androidx.viewpager2.widget.ViewPager2
@@ -10,13 +11,19 @@ import com.bumptech.glide.Glide
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.mineversal.githubuser.R
+import com.mineversal.githubuser.data.database.FavoriteUser
 import com.mineversal.githubuser.databinding.ActivityUserDetailApiBinding
-import com.mineversal.githubuser.model.UserDetailResponse
-import com.mineversal.githubuser.viewmodel.UserDetailViewModel
+import com.mineversal.githubuser.data.model.UserDetailResponse
+import com.mineversal.githubuser.data.viewmodel.UserDetailViewModel
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class UserDetailApiActivity : AppCompatActivity() {
     private lateinit var binding: ActivityUserDetailApiBinding
     private val userDetailViewModel by viewModels<UserDetailViewModel>()
+    private var favoriteUser: FavoriteUser? = FavoriteUser()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,6 +31,8 @@ class UserDetailApiActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         val username = intent.getStringExtra(EXTRA_USERNAME)
+        val id = intent.getIntExtra(EXTRA_ID, 0)
+        val avatar = intent.getStringExtra(EXTRA_AVATAR)
         val bundle = Bundle()
         bundle.putString(EXTRA_USERNAME, username)
 
@@ -37,6 +46,36 @@ class UserDetailApiActivity : AppCompatActivity() {
             showLoading(it)
         })
 
+        favoriteUser?.login = username
+        favoriteUser?.id = id
+        favoriteUser?.avatar_url = avatar
+
+        var isChecked = false
+
+        CoroutineScope(Dispatchers.IO).launch {
+            val count = userDetailViewModel.checkUser(id)
+            withContext(Dispatchers.Main){
+                if (count > 0) {
+                    binding.toggleFavorite.isChecked = true
+                    isChecked = true
+                } else {
+                    binding.toggleFavorite.isChecked = false
+                    isChecked = false
+                }
+            }
+        }
+
+        binding.toggleFavorite.setOnClickListener {
+            isChecked = !isChecked
+            if (isChecked){
+                userDetailViewModel.insert(favoriteUser as FavoriteUser)
+                showToast("User Berhasil Ditambahkan ke Favorite")
+            } else {
+                userDetailViewModel.delete(favoriteUser as FavoriteUser)
+                showToast("User Berhasil Dihapus Dari Favorite")
+            }
+            binding.toggleFavorite.isChecked = isChecked
+        }
 
         val sectionsPagerAdapter = SectionsPagerAdapter(this, bundle)
         val viewPager: ViewPager2 = binding.viewPager
@@ -78,6 +117,10 @@ class UserDetailApiActivity : AppCompatActivity() {
         }
     }
 
+    private fun showToast(message: String) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+    }
+
     private fun showLoading(isLoading: Boolean) {
         if (isLoading) {
             binding.progressBar.visibility = View.VISIBLE
@@ -89,6 +132,8 @@ class UserDetailApiActivity : AppCompatActivity() {
     //Intent Key Value Declaration
     companion object {
         const val EXTRA_USERNAME = "extra_username"
+        const val EXTRA_ID = "extra_id"
+        const val EXTRA_AVATAR = "extra_avatar"
 
         @StringRes
         private val TAB_TITLES = intArrayOf(
