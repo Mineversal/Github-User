@@ -3,187 +3,149 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_detail_profile"
+    android:id="@+id/activity_dev_profile"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/white"
-    tools:context=".ui.UserDetailApiActivity">
+    tools:context=".UserDetailsActivity">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <ToggleButton
-            android:id="@+id/toggle_favorite"
-            android:layout_width="38dp"
-            android:layout_height="38dp"
-            android:textOff=""
-            android:textOn=""
-            android:background="@drawable/favorite_toggle"
-            android:focusable="false"
-            android:focusableInTouchMode="false"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+        <RelativeLayout
+            android:layout_width="300dp"
+            android:layout_height="300dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="25dp">
 
-        <ProgressBar
-            android:id="@+id/progressBar"
-            style="?android:attr/progressBarStyle"
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/avatar"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:src="@tools:sample/avatars" />
+        </RelativeLayout>
+
+        <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:visibility="visible" />
+            android:layout_gravity="center"
+            android:layout_marginTop="75dp">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            <TextView
+                android:id="@+id/name"
+                style="@style/TextContent"
+                android:layout_marginHorizontal="57.9dp"
+                android:textAlignment="center"
+                android:textSize="32sp" />
 
-            <RelativeLayout
-                android:layout_width="200dp"
-                android:layout_height="200dp"
-                android:layout_gravity="center"
-                android:layout_marginTop="25dp">
+        </RelativeLayout>
 
-                <de.hdodenhof.circleimageview.CircleImageView
-                    android:id="@+id/avatar"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    tools:src="@tools:sample/avatars" />
-            </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="16dp">
 
-            <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="25dp">
+            <TextView
+                style="@style/TextContent.Subtitle"
+                android:id="@+id/username"
+                android:textAlignment="center"
+                android:textSize="24sp" />
 
-                <TextView
-                    android:id="@+id/name"
-                    style="@style/TextContent"
-                    android:layout_marginHorizontal="57.9dp"
-                    android:textAlignment="center"
-                    android:textSize="32sp" />
+        </RelativeLayout>
 
-            </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="16dp">
 
-            <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="12dp">
+            <TextView
+                style="@style/TextContent.Subtitle"
+                android:id="@+id/follow"
+                android:textAlignment="center"
+                android:textSize="16sp"
+                app:drawableStartCompat="@drawable/ic_baseline_people_alt_24" />
 
-                <TextView
-                    style="@style/TextContent.Subtitle"
-                    android:id="@+id/username"
-                    android:textAlignment="center"
-                    android:textSize="24sp" />
+        </RelativeLayout>
 
-            </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="16dp">
 
-            <TableLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="12dp">
+            <TextView
+                style="@style/TextContent.Subtitle"
+                android:id="@+id/company"
+                android:textAlignment="center"
+                android:textSize="16sp"
+                app:drawableStartCompat="@drawable/ic_baseline_business_center_24" />
 
-                <TableRow tools:ignore="UselessParent">
+        </RelativeLayout>
 
-                    <TextView
-                        style="@style/TextContent.Subtitle"
-                        android:id="@+id/company"
-                        android:textAlignment="center"
-                        android:textSize="16sp"
-                        app:drawableStartCompat="@drawable/ic_baseline_business_center_24" />
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="16dp">
 
-                    <TextView
-                        style="@style/TextContent.Subtitle"
-                        android:id="@+id/location"
-                        android:textAlignment="center"
-                        android:textSize="16sp"
-                        app:drawableStartCompat="@drawable/ic_baseline_location_on_24" />
-                </TableRow>
-            </TableLayout>
+            <TextView
+                style="@style/TextContent.Subtitle"
+                android:id="@+id/location"
+                android:textAlignment="center"
+                android:textSize="16sp"
+                app:drawableStartCompat="@drawable/ic_baseline_location_on_24" />
 
-            <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="12dp">
+        </RelativeLayout>
 
-                <TextView
-                    style="@style/TextContent.Subtitle"
-                    android:id="@+id/repository"
-                    android:textAlignment="center"
-                    android:textSize="16sp"
-                    app:drawableStartCompat="@drawable/ic_baseline_library_books_24" />
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="16dp">
 
-            </RelativeLayout>
+            <TextView
+                style="@style/TextContent.Subtitle"
+                android:id="@+id/repository"
+                android:textAlignment="center"
+                android:textSize="16sp"
+                app:drawableStartCompat="@drawable/ic_baseline_library_books_24" />
 
-            <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="12dp">
+        </RelativeLayout>
 
-                <TextView
-                    style="@style/TextContent.Subtitle"
-                    android:id="@+id/follow"
-                    android:textAlignment="center"
-                    android:textSize="16sp"
-                    app:drawableStartCompat="@drawable/ic_baseline_people_alt_24" />
+        <TableLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp">
 
-            </RelativeLayout>
+            <TableRow>
 
-            <TableLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="12dp">
+                <Button
+                    android:id="@+id/github"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:width="150dp"
+                    android:text="@string/github_page"
+                    android:layout_marginEnd="4dp"
+                    android:drawableLeft="@drawable/ic_baseline_insert_link_24"/>
 
-                <TableRow tools:ignore="UselessParent">
+                <Button
+                    android:id="@+id/share"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:width="150dp"
+                    android:text="@string/share"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginEnd="8dp"
+                    android:drawableLeft="@drawable/ic_baseline_share_24"/>
 
-                    <Button
-                        android:id="@+id/github"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:width="150dp"
-                        android:text="@string/github_page"
-                        android:layout_marginEnd="4dp"
-                        android:drawableLeft="@drawable/ic_baseline_insert_link_24"/>
+            </TableRow>
 
-                    <Button
-                        android:id="@+id/share"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:width="150dp"
-                        android:text="@string/share"
-                        android:layout_marginStart="4dp"
-                        android:layout_marginEnd="8dp"
-                        android:drawableLeft="@drawable/ic_baseline_share_24"/>
+        </TableLayout>
 
-                </TableRow>
-
-            </TableLayout>
-
-            <com.google.android.material.tabs.TabLayout
-                android:id="@+id/tabs"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@android:color/white"
-                app:tabTextColor="?attr/colorPrimary"/>
-
-            <androidx.viewpager2.widget.ViewPager2
-                android:id="@+id/view_pager"
-                android:layout_width="match_parent"
-                android:layout_height="450dp" />
-
-        </LinearLayout>
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
 </ScrollView>

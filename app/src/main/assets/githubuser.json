@@ -1,10 +1,8 @@
 {
     "users": [{
-            "id": 66577,
             "username": "JakeWharton",
             "name": "Jake Wharton",
             "avatar": "@drawable/user1",
-            "avatar_url": "https://avatars.githubusercontent.com/u/66577?v=4",
             "company": "Google, Inc.",
             "location": "Pittsburgh, PA, USA",
             "repository": 102,
@@ -12,11 +10,9 @@
             "following": 12
         },
         {
-            "id": 9877145,
             "username": "amitshekhariitbhu",
             "name": "AMIT SHEKHAR",
             "avatar": "@drawable/user2",
-            "avatar_url": "https://avatars.githubusercontent.com/u/9877145?v=4",
             "company": "@MindOrksOpenSource",
             "location": "New Delhi, India",
             "repository": 37,
@@ -24,11 +20,9 @@
             "following": 2
         },
         {
-            "id": 869684,
             "username": "romainguy",
             "name": "Romain Guy",
             "avatar": "@drawable/user3",
-            "avatar_url": "https://avatars.githubusercontent.com/u/869684?v=4",
             "company": "Google",
             "location": "California",
             "repository": 9,
@@ -36,11 +30,9 @@
             "following": 0
         },
         {
-            "id": 227486,
             "username": "chrisbanes",
             "name": "Chris Banes",
             "avatar": "@drawable/user4",
-            "avatar_url": "https://avatars.githubusercontent.com/u/227486?v=4",
             "company": "@google working on @android",
             "location": "Sydney, Australia",
             "repository": 30,
@@ -48,11 +40,9 @@
             "following": 1
         },
         {
-            "id": 1521451,
             "username": "tipsy",
             "name": "David",
             "avatar": "@drawable/user5",
-            "avatar_url": "https://avatars.githubusercontent.com/u/1521451?v=4",
             "company": "Working Group Two",
             "location": "Trondheim, Norway",
             "repository": 56,
@@ -60,11 +50,9 @@
             "following": 0
         },
         {
-            "id": 497670,
             "username": "ravi8x",
             "name": "Ravi Tamada",
             "avatar": "@drawable/user6",
-            "avatar_url": "https://avatars.githubusercontent.com/u/497670?v=4",
             "company": "AndroidHive | Droid5",
             "location": "India",
             "repository": 28,
@@ -72,11 +60,9 @@
             "following": 3
         },
         {
-            "id": 363917,
             "username": "jasoet",
             "name": "Deny Prasetyo",
             "avatar": "@drawable/user7",
-            "avatar_url": "https://avatars.githubusercontent.com/u/363917?v=4",
             "company": "@gojek-engineering",
             "location": "Kotagede, Yogyakarta, Indonesia",
             "repository": 44,
@@ -84,11 +70,9 @@
             "following": 39
         },
         {
-            "id": 2031493,
             "username": "budioktaviyan",
             "name": "Budi Oktaviyan",
             "avatar": "@drawable/user8",
-            "avatar_url": "https://avatars.githubusercontent.com/u/2031493?v=4",
             "company": "@KotlinID",
             "location": "Jakarta, Indonesia",
             "repository": 110,
@@ -96,11 +80,9 @@
             "following": 23
         },
         {
-            "id": 3713580,
             "username": "hendisantika",
             "name": "Hendi Santika",
             "avatar": "@drawable/user9",
-            "avatar_url": "https://avatars.githubusercontent.com/u/3713580?v=4",
             "company": "@JVMDeveloperID @KotlinID @IDDevOps",
             "location": "Bojongsoang - Bandung Jawa Barat",
             "repository": 1064,
@@ -108,11 +90,9 @@
             "following": 61
         },
         {
-            "id": 4090245,
             "username": "sidiqpermana",
             "name": "Sidiq Permana",
             "avatar": "@drawable/user10",
-            "avatar_url": "https://avatars.githubusercontent.com/u/4090245?v=4",
             "company": "Nusantara Beta Studio",
             "location": "Jakarta Indonesia",
             "repository": 65,
