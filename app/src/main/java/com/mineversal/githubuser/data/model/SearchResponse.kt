@@ -1,4 +1,4 @@
-package com.mineversal.githubuser.model
+package com.mineversal.githubuser.data.model
 
 import com.google.gson.annotations.SerializedName
 

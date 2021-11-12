@@ -9,9 +9,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.mineversal.githubuser.R
 import com.mineversal.githubuser.adapter.UserAdapter
 import com.mineversal.githubuser.databinding.FragmentFollowingBinding
-import com.mineversal.githubuser.model.Users
-import com.mineversal.githubuser.viewmodel.FollowingViewModel
-
+import com.mineversal.githubuser.data.model.Users
+import com.mineversal.githubuser.data.viewmodel.FollowingViewModel
 
 class FollowingFragment: Fragment(R.layout.fragment_following) {
     private lateinit var _binding: FragmentFollowingBinding

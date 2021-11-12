@@ -1,34 +1,39 @@
 package com.mineversal.githubuser.api
 
-import com.mineversal.githubuser.model.SearchResponse
-import com.mineversal.githubuser.model.UserDetailResponse
-import com.mineversal.githubuser.model.Users
+import com.mineversal.githubuser.BuildConfig
+import com.mineversal.githubuser.data.model.SearchResponse
+import com.mineversal.githubuser.data.model.UserDetailResponse
+import com.mineversal.githubuser.data.model.Users
 import retrofit2.Call
 import retrofit2.http.*
 
 //API SERVICE
 interface ApiService {
     @GET("search/users")
-    @Headers("Authorization: token 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")
+    @Headers(mySuperScretKey)
     fun getSearchUsers(
         @Query("q") query: String
     ): Call<SearchResponse>
 
     @GET("users/{username}")
-    @Headers("Authorization: token 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")
+    @Headers(mySuperScretKey)
     fun getUserDetail(
         @Path("username") username: String
     ): Call<UserDetailResponse>
 
     @GET("users/{username}/followers")
-    @Headers("Authorization: token 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")
+    @Headers(mySuperScretKey)
     fun getFollowers(
         @Path("username") username: String
     ): Call<ArrayList<Users>>
 
     @GET("users/{username}/following")
-    @Headers("Authorization: token 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")
+    @Headers(mySuperScretKey)
     fun getFollowing(
         @Path("username") username: String
     ): Call<ArrayList<Users>>
+
+    companion object {
+        private const val mySuperScretKey = BuildConfig.KEY
+    }
 }

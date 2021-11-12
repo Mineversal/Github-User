@@ -1,4 +1,4 @@
-package com.mineversal.githubuser.viewmodel
+package com.mineversal.githubuser.data.local
 
 import android.content.Context
 import java.io.IOException

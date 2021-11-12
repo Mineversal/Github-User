@@ -6,35 +6,35 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import androidx.activity.viewModels
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.mineversal.githubuser.R
-import com.mineversal.githubuser.adapter.UserAdapter
-import com.mineversal.githubuser.databinding.ActivitySearchBinding
-import com.mineversal.githubuser.data.model.Users
+import com.mineversal.githubuser.adapter.FavoriteAdapter
+import com.mineversal.githubuser.data.database.FavoriteUser
+import com.mineversal.githubuser.data.helper.FavoriteUserViewModelFactory
 import com.mineversal.githubuser.data.viewmodel.SearchViewModel
+import com.mineversal.githubuser.databinding.ActivityFavoriteBinding
 
-class SearchActivity : AppCompatActivity() {
-    private lateinit var binding: ActivitySearchBinding
+class FavoriteActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityFavoriteBinding
     private val searchViewModel by viewModels<SearchViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivitySearchBinding.inflate(layoutInflater)
+        binding = ActivityFavoriteBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        val username = intent.getStringExtra(EXTRA_USERNAME)
-
-        username?.let { searchViewModel.setSearchUsers(it) }
 
         val layoutManager = LinearLayoutManager(this)
         binding.rvUser.layoutManager = layoutManager
         val itemDecoration = DividerItemDecoration(this, layoutManager.orientation)
         binding.rvUser.addItemDecoration(itemDecoration)
 
-        searchViewModel.listUsers.observe(this, { search ->
-            getSearch(search)
+        val favoriteViewModel = obtainViewModel(this@FavoriteActivity)
+        favoriteViewModel.getAllNotes().observe(this, { userList ->
+            if (userList != null) {
+                getSearch(userList)
+            }
         })
 
         searchViewModel.isLoading.observe(this, {
@@ -47,11 +47,10 @@ class SearchActivity : AppCompatActivity() {
             binding.rvUser.layoutManager = LinearLayoutManager(this)
         }
 
-        //Action Bar
         val actionbar = supportActionBar
 
         //Set Action Bar Title
-        actionbar?.title = getString(R.string.hasil_pencarian)
+        actionbar?.title = "Favorite"
 
         //Set Back Button
         actionbar?.setDisplayHomeAsUpEnabled(true)
@@ -71,16 +70,16 @@ class SearchActivity : AppCompatActivity() {
         }
     }
 
-    private fun getSearch(searchUser: ArrayList<Users>) {
-        val listUser = ArrayList<Users>()
-        if (searchUser.size >= 1) {
+    private fun getSearch(favUser: List<FavoriteUser>) {
+        val listUser = ArrayList<FavoriteUser>()
+        if (favUser.isNotEmpty()) {
             listUser.clear()
-            listUser.addAll(searchUser)
-            val adapterUserAdapter = UserAdapter(listUser)
+            listUser.addAll(favUser)
+            val adapterUserAdapter = FavoriteAdapter(listUser)
             binding.rvUser.adapter = adapterUserAdapter
 
-            adapterUserAdapter.setOnItemClickCallback(object : UserAdapter.OnItemClickCallback {
-                override fun onItemClicked(data: Users) {
+            adapterUserAdapter.setOnItemClickCallback(object : FavoriteAdapter.OnItemClickCallback {
+                override fun onItemClicked(data: FavoriteUser) {
                     showUserDetails(data)
                 }
             })
@@ -89,15 +88,16 @@ class SearchActivity : AppCompatActivity() {
         }
     }
 
-    private fun showUserDetails(user: Users) {
-        val moveWithObjectIntent = Intent(this@SearchActivity, UserDetailApiActivity::class.java)
+    private fun showUserDetails(user: FavoriteUser) {
+        val moveWithObjectIntent = Intent(this@FavoriteActivity, UserDetailApiActivity::class.java)
         moveWithObjectIntent.putExtra(UserDetailApiActivity.EXTRA_USERNAME, user.login)
         moveWithObjectIntent.putExtra(UserDetailApiActivity.EXTRA_ID, user.id)
         moveWithObjectIntent.putExtra(UserDetailApiActivity.EXTRA_AVATAR, user.avatar_url)
         startActivity(moveWithObjectIntent)
     }
 
-    companion object {
-        const val EXTRA_USERNAME = "extra_username"
+    private fun obtainViewModel(activity: AppCompatActivity): SearchViewModel {
+        val factory = FavoriteUserViewModelFactory.getInstance(activity.application)
+        return ViewModelProvider(activity, factory).get(SearchViewModel::class.java)
     }
 }
