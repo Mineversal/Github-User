@@ -1,4 +1,4 @@
-package com.mineversal.githubuser
+package com.mineversal.githubuser.ui
 
 import android.content.Intent
 import android.content.res.Configuration
@@ -10,16 +10,27 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import org.json.JSONObject
 import org.json.JSONTokener
+import android.app.SearchManager
+import android.content.Context
+import android.view.Menu
+import androidx.appcompat.widget.SearchView
+import com.mineversal.githubuser.R
+import com.mineversal.githubuser.adapter.ListUserAdapter
+import com.mineversal.githubuser.databinding.ActivityMainBinding
+import com.mineversal.githubuser.model.User
+import com.mineversal.githubuser.viewmodel.Utils
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var rvUser: RecyclerView
     private var itemsArray: ArrayList<User> = arrayListOf()
     private lateinit var adapter: ListUserAdapter
+    private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         rvUser = findViewById(R.id.rv_user)
         rvUser.setHasFixedSize(true)
@@ -33,6 +44,29 @@ class MainActivity : AppCompatActivity() {
         } else {
             rvUser.layoutManager = LinearLayoutManager(this)
         }
+
+
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        val inflater = menuInflater
+        inflater.inflate(R.menu.option_menu, menu)
+
+        val searchManager = getSystemService(Context.SEARCH_SERVICE) as SearchManager
+        val searchView = menu.findItem(R.id.search).actionView as SearchView
+        searchView.setSearchableInfo(searchManager.getSearchableInfo(componentName))
+        searchView.queryHint = resources.getString(R.string.search_hint)
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String): Boolean {
+                searchUser(query)
+                return true
+            }
+            override fun onQueryTextChange(query: String): Boolean {
+                return false
+            }
+        })
+
+        return true
     }
 
     //Get Data From JSON File
@@ -77,22 +111,18 @@ class MainActivity : AppCompatActivity() {
         return list
     }
 
+    //Move to Search Activity
+    private fun searchUser(username: String) {
+        val moveWithObjectIntent = Intent(this@MainActivity, SearchActivity::class.java)
+        moveWithObjectIntent.putExtra(SearchActivity.EXTRA_USERNAME, username)
+        startActivity(moveWithObjectIntent)
+    }
+
     //Move to Details Activity
     private fun showItemDetails(user: User) {
-        val account = User(
-            user.username,
-            user.name,
-            user.avatar,
-            user.company,
-            user.location,
-            user.repository,
-            user.follower,
-            user.following
-        )
         val moveWithObjectIntent = Intent(this@MainActivity, UserDetailsActivity::class.java)
-        moveWithObjectIntent.putExtra(UserDetailsActivity.EXTRA_USER, account)
+        moveWithObjectIntent.putExtra(UserDetailsActivity.EXTRA_USER, user)
         startActivity(moveWithObjectIntent)
-
     }
 
     //Recycler List Declaration and Call Back Function

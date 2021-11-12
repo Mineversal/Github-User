@@ -3,4 +3,12 @@
     <string name="github_page">Github</string>
     <string name="ini_gambar_splash_screen">Ini Gambar Splash Screen</string>
     <string name="share">Share</string>
+    <string name="repo">"%s Repositories"</string>
+    <string name="search">Search</string>
+    <string name="search_hint">Cari User..</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="follower">Follower</string>
+    <string name="following">Following</string>
+    <string name="user_tidak_ditemukan">User Tidak Ditemukan</string>
+    <string name="user_tidak_memiliki_follower">User Tidak Memiliki Follower</string>
 </resources>

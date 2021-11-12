@@ -1,7 +1,7 @@
-package com.mineversal.githubuser
+package com.mineversal.githubuser.model
 
 import android.os.Parcelable
-import kotlinx.android.parcel.Parcelize
+import kotlinx.parcelize.Parcelize
 
 //Data Class User with Parcelize
 @Parcelize

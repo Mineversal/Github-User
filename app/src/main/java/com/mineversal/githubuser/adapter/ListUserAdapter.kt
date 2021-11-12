@@ -1,4 +1,4 @@
-package com.mineversal.githubuser
+package com.mineversal.githubuser.adapter
 
 import android.view.LayoutInflater
 import android.view.View
@@ -8,6 +8,8 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
+import com.mineversal.githubuser.R
+import com.mineversal.githubuser.model.User
 
 class ListUserAdapter(private val listUser: ArrayList<User>) : RecyclerView.Adapter<ListUserAdapter.ListViewHolder>() {
     private lateinit var onItemClickCallback: OnItemClickCallback
@@ -43,9 +45,7 @@ class ListUserAdapter(private val listUser: ArrayList<User>) : RecyclerView.Adap
     }
 
     //List Count
-    override fun getItemCount(): Int {
-        return listUser.size
-    }
+    override fun getItemCount() = listUser.size
 
     //Return User Data if Clicked
     interface OnItemClickCallback {
